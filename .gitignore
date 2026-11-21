@@ -1,0 +1,14 @@
+# generated per run / per organize pass (large, local)
+runs/
+organize/
+dist/
+
+# Blender autosaves and pipeline backups
+*.blend1
+*.ctx-backup-*.blend
+
+# OS / Python
+.DS_Store
+__pycache__/
+*.pyc
+.claude/settings.local.json

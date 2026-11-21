@@ -1,0 +1,377 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Context export v0.1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "source_blend",
+    "project",
+    "sections",
+    "blender_bin"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1"
+    },
+    "exported_at": {
+      "type": "string"
+    },
+    "source_blend": {
+      "type": "string"
+    },
+    "blender_version": {
+      "type": "string"
+    },
+    "scene": {
+      "type": "string"
+    },
+    "project": {
+      "type": "object",
+      "required": [
+        "style_notes",
+        "era",
+        "scale_unit",
+        "palette",
+        "global_refs",
+        "global_notes",
+        "global_links",
+        "global_sketches",
+        "global_groups"
+      ],
+      "properties": {
+        "style_notes": {
+          "type": "string"
+        },
+        "era": {
+          "type": "string"
+        },
+        "scale_unit": {
+          "type": "string"
+        },
+        "palette": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^#[0-9A-F]{6}$"
+          }
+        },
+        "global_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ref"
+          }
+        },
+        "global_notes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/note"
+          }
+        },
+        "global_links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/link"
+          }
+        },
+        "global_groups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/group"
+          }
+        },
+        "global_sketches": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sketch"
+          }
+        }
+      }
+    },
+    "sections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "collection",
+          "collection_path",
+          "parent_id",
+          "depth",
+          "status",
+          "order",
+          "prefix",
+          "intent",
+          "refs",
+          "notes",
+          "links",
+          "sketches",
+          "groups",
+          "objects",
+          "blockout_preview",
+          "neighbors"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{32}$"
+          },
+          "title": {
+            "type": "string"
+          },
+          "collection": {
+            "type": "string"
+          },
+          "collection_path": {
+            "type": "string"
+          },
+          "parent_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "depth": {
+            "type": "integer"
+          },
+          "status": {
+            "enum": [
+              "draft",
+              "ready",
+              "locked"
+            ]
+          },
+          "order": {
+            "type": "integer"
+          },
+          "prefix": {
+            "type": "string",
+            "pattern": "^ctx_[0-9a-f]{6}_$"
+          },
+          "intent": {
+            "type": "string"
+          },
+          "refs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ref"
+            }
+          },
+          "notes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/note"
+            }
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/link"
+            }
+          },
+          "objects": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "name",
+                "type",
+                "vertex_count",
+                "bbox_world",
+                "materials"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "vertex_count": {
+                  "type": "integer"
+                },
+                "bbox_world": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "required": [
+                    "min",
+                    "max"
+                  ],
+                  "properties": {
+                    "min": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "max": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                },
+                "materials": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "blockout_preview": {
+            "type": "string"
+          },
+          "neighbors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "groups": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/group"
+            }
+          },
+          "sketches": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/sketch"
+            }
+          }
+        }
+      }
+    },
+    "blender_bin": {
+      "type": "string"
+    },
+    "python_bin": {
+      "type": "string",
+      "description": "Blender's own Python; the stdlib tools run on it"
+    },
+    "addon_dir": {
+      "type": "string",
+      "description": "The installed Context Editor add-on: tools/, skills/ and PIPELINE.md"
+    }
+  },
+  "$defs": {
+    "ref": {
+      "type": "object",
+      "required": [
+        "file",
+        "image"
+      ],
+      "properties": {
+        "file": {
+          "type": "string",
+          "pattern": "^refs/"
+        },
+        "image": {
+          "type": "string"
+        }
+      }
+    },
+    "note": {
+      "type": "object",
+      "required": [
+        "name",
+        "text"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        }
+      }
+    },
+    "link": {
+      "type": "object",
+      "required": [
+        "url",
+        "label"
+      ],
+      "properties": {
+        "url": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        }
+      }
+    },
+    "group": {
+      "type": "object",
+      "required": [
+        "label",
+        "refs",
+        "notes",
+        "links",
+        "sketches",
+        "groups"
+      ],
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ref"
+          }
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/note"
+          }
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/link"
+          }
+        },
+        "groups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/group"
+          }
+        },
+        "sketches": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sketch"
+          }
+        }
+      }
+    },
+    "sketch": {
+      "type": "object",
+      "required": [
+        "object",
+        "image",
+        "strokes"
+      ],
+      "properties": {
+        "object": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string",
+          "pattern": "^previews/sketch/"
+        },
+        "strokes": {
+          "type": "string",
+          "pattern": "^sketches/"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "blender-context-editor",
+  "description": "The Blender Context Editor build pipeline.",
+  "owner": {
+    "name": "pjos"
+  },
+  "plugins": [
+    {
+      "name": "blender-context",
+      "source": "./addon",
+      "description": "Blender Context Editor build pipeline: plan, run, run-section, merge, apply, organize, setup."
+    }
+  ]
+}

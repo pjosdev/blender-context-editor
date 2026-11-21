@@ -1,0 +1,16 @@
+{
+  "name": "blender-context",
+  "version": "0.4.3",
+  "description": "Turn a Blender block-out into a detailed model: the artist's Context Editor board feeds a lead and per-section worker agents that build, check and merge in headless Blender.",
+  "author": {
+    "name": "pjos"
+  },
+  "repository": "https://github.com/pjosdev/blender-context-editor",
+  "keywords": [
+    "blender",
+    "3d",
+    "modeling",
+    "pipeline"
+  ],
+  "license": "GPL-3.0-or-later"
+}
