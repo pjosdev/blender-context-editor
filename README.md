@@ -60,7 +60,7 @@ Open your agent in the folder you want the work to go in. Each snapshot goes in 
 | `/blender-context:organize [notes]` | `ctx-organize` | Renames and sorts every object into collections; backup first, one Ctrl+Z undoes it |
 
 `[run]` defaults to the newest folder in `runs/`. Run folders are named `<YYYY-MM-DD>_<HHMM>_<file>`
-(e.g. `2026-11-20_1318_bikething`); `run` appends the model that builds it (`…_opus-xhigh`).
+(e.g. `2026-11-20_1318_myscene`); `run` appends the model that builds it (`…_opus-xhigh`).
 
 Workers run as sub-agents where the agent supports them (in Claude Code, the `blender-worker` agent).
 Otherwise the lead builds the sections itself, one after another. Workers need image input, because they
@@ -107,22 +107,15 @@ runs/<run>/
 - **Merge** runs every kept script in order on a fresh `base.blend`. Scripts are deterministic (`sec.rng`
   only), so a build is reproducible from `base.blend` + `scripts/`.
 
-## Lessons from the bike runs
+## Known limits
 
-How to write tasks (form first, fixed interfaces at the seams, not too many) is in the `plan` skill.
-Also learned:
-
-- **Judge from full-size close-ups and whole-model renders.** The automatic section camera often looks
-  through other sections' block-out.
-- **Known gaps in generated geometry** (no check exists yet): parts not joined, overlapping faces,
-  flipped normals; remeshed castings with no UVs; heavy sections (600k+ triangles).
-- **Model and cost.** One section takes about 260–440k tokens. On this bike, Fable at high effort beat
-  Opus at medium effort in a blind round-1 comparison.
+- No check yet for problems in generated geometry: parts not joined, overlapping faces, flipped normals,
+  missing UVs, very heavy sections.
+- A section's worker uses a lot of tokens: expect a few hundred thousand per section.
 
 ## Windows
 
-Tested on Windows 11 with Blender 5.2.1. A file whose textures link to folders that only exist on another machine still snapshots and renders
-without them.
+Tested on Windows 11 with Blender 5.2.
 
 ## Tests
 
